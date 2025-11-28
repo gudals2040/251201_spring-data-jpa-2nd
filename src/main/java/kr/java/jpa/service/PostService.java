@@ -38,4 +38,9 @@ public class PostService {
         Post savedPost = postRepository.save(post);
         return savedPost.getId();
     }
+
+    // 검색
+    public List<Post> getPostsByTitle(String keyword) {
+        return postRepository.findByTitleContainingOrderByCreatedAtDesc(keyword);
+    }
 }

@@ -19,6 +19,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PostController {
     private final PostService postService;
 
+    @GetMapping("/search")
+    public String postListByKeyword(HttpSession session,
+                                    @RequestParam String keyword,
+                                    Model model) {
+        UserInfo loginUser = (UserInfo) session.getAttribute("userInfo");
+        if (loginUser == null) return "redirect:/login";
+//        model.addAttribute("posts", postService.getAllPosts());
+        model.addAttribute("posts", postService.getPostsByTitle(keyword));
+        model.addAttribute("userInfo", loginUser);
+        return "post/list"; // webapp/WEB-INF/views/post/list.jsp
+    }
+
+
     @GetMapping
     public String postList(HttpSession session, Model model) {
         UserInfo loginUser = (UserInfo) session.getAttribute("userInfo");

@@ -17,6 +17,11 @@
         <p> 별명 : <%= ui.getNickname() %> </p>
     </nav>
 
+    <form action="<%= request.getContextPath() %>/posts/search">
+        <input name="keyword" placeholder="keyword">
+        <button>검색</button>
+    </form>
+
     <% List<Post> posts = (List<Post>) request.getAttribute("posts");
         for (Post p : posts) {
     %>
